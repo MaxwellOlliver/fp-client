@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Container } from '../styles/styles';
-import { FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import { useRouter } from 'next/router';
-import Input from './components/Input';
+import Input from '../components/Input';
 
 export default function Home() {
   const [firstError, setFirstError] = useState('');
