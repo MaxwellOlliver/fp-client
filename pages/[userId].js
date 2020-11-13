@@ -2,10 +2,12 @@ import { useRef, useState } from 'react';
 import { Container } from '../styles/styles';
 import { useRouter } from 'next/router';
 import Input from '../components/Input';
+import Axios from 'axios';
 
 export default function Home() {
   const [firstError, setFirstError] = useState('');
   const [secondError, setSecondError] = useState('');
+  const [requestError, setRequestError] = useState('');
   const [firstDisabled, setFirstDisabled] = useState(false);
   const [secondDisabled, setSecondDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -48,22 +50,21 @@ export default function Home() {
 
     try {
       load();
-      fetch(`http://localhost:3333/customer/forgotpass?c=${userId}`, {
-        method: 'POST',
-        body: JSON.stringify({
+      await Axios.post(
+        `http://localhost:3333/customer/forgotpass?c=${userId}`,
+        {
           password,
           confirmPassword,
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      }).then(() => {
-        setModal(true);
-        setLoading(false);
-      });
+        }
+      );
+
+      setModal(true);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       enableAll();
+      setRequestError('Erro ao alterar senha.');
+      setTimeout(() => setRequestError(''));
     }
   }
 
@@ -142,6 +143,7 @@ export default function Home() {
             'Entrar'
           )}
         </button>
+        <span className="error">{requestError}</span>
       </form>
 
       {modal && (
@@ -149,8 +151,6 @@ export default function Home() {
           <div className="modal">
             <h3>Sua senha foi alterada!</h3>
             <span>Você pode fechar essa janela.</span>
-
-            <button onClick={() => window.close()}>Fechar janela</button>
           </div>
         </div>
       )}

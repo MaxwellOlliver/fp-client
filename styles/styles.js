@@ -40,23 +40,9 @@ export const Container = styled.div`
         margin-bottom: 10px;
       }
 
-      button {
-        height: 30px;
-        width: 100px;
-        border-radius: 5px;
-
-        background-color: #f1b71c;
-
-        color: #fff;
-        cursor: pointer;
-        font-size: 14px;
-
-        transition: all 0.3s;
+      span {
         margin-top: 30px;
-
-        &:hover {
-          background-color: #cf9e17;
-        }
+        color: #f1b71c;
       }
     }
   }
