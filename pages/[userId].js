@@ -143,7 +143,9 @@ export default function Home() {
             'Entrar'
           )}
         </button>
-        <span className="error">{requestError}</span>
+        <span className="error" style={{ marginBottom: '0 !important' }}>
+          {requestError}
+        </span>
       </form>
 
       {modal && (
